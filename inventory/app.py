@@ -59,7 +59,7 @@ def addProduct():
         if(validatProduct(product_name, product_quantity)):
             pc = Products.query.filter_by(name = product_name).first()
             if pc is not None:
-                pc.quantity = pc.quantity + int(product_quantity)
+                pc.quantity = int(product_quantity)
                 db.session.commit()
                 return render_template('products.html', products = Products.query.all())
             else:
@@ -71,7 +71,7 @@ def addProduct():
     return render_template('products.html', products = Products.query.all(), message = "Something Wrong Pleas try again")
     
 
-@app.route('/del_pro', methods = ['POST'])
+@app.route('/del_pro', methods = ['GET','POST'])
 def deleteProduct():
     pr_id = request.args.get('prod_id')
     Products.query.filter_by(id=pr_id).delete()
@@ -90,7 +90,7 @@ def addLocation():
         return render_template('locations.html', locations = Locations.query.all() , message = "Enter location")
     return render_template('locations.html', locations = Locations.query.all(), message = "Something Wrong Pleas try again")
 
-@app.route('/del_loc', methods = ['POST'])
+@app.route('/del_loc', methods = ['GET','POST'])
 def deleteLocation():
     lc_id = request.args.get('loc_id')
     Locations.query.filter_by(id=lc_id).delete()
