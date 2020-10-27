@@ -107,7 +107,7 @@ def newMove():
         if qnty == "":
             return render_template('moveproduct.html', locations = Locations.query.all() , products = Products.query.all(),prmn = ProductMovement.query.all(), message = "Quantity cant be Null")
         qty = int(qnty)
-        print(from_id,to_id,pr_id,qty)
+        
         if (from_id == to_id):
             return render_template('moveproduct.html', locations = Locations.query.all() , products = Products.query.all(),prmn = ProductMovement.query.all(), message = "Same Location not allowed")
         
@@ -116,12 +116,12 @@ def newMove():
 
         if from_id == "":
             p = Products.query.filter_by(id = pr_id).first()
-            print(p.name)
+            
             if p.quantity >= qty:
                 p.quantity = p.quantity - qty
                 db.session.commit()
                 pm = ProductMovement.query.filter_by(to_location_id = to_id, product_id = pr_id).first()
-                print("jhcvhgsdvc",pm)
+                
                 if pm is not None:
                     pm.quantity = pm.quantity + qty
                     db.session.commit()
