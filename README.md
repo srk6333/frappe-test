@@ -21,3 +21,16 @@ pipenv shell
 ```bash
 pipenv install
 ```
+
+## Run
+
+```bash
+python3 app.py
+```
+
+# Result
+
+## Home
+ You Can See The Statics
+
+ ![Home page](screenshots/home.png?raw=true "Home page")
