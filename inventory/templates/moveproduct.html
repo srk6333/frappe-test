@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Move Product</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Show all</a></li>
+        <li><a href="{{ url_for('products_view') }}">Products</a></li>
+        <li><a href="{{ url_for('locations_view') }}">Locations</a></li>
+        <li><a class="active" href="{{ url_for('move_view') }}">Move Products</a></li>
+    </ul>
+    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+        <h1>Products</h1>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Quantities</th>
+                </tr>
+            </thead>
+            {% for product in products %}
+            <tbody>
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.quantity }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    
+    
+        <h1>Locations</h1>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Location ID</th>
+                    <th>Locations</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for location in locations %}
+            <tbody>
+                <tr>
+                    <td>{{ location.id }}</td>
+                    <td>{{ location.name }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if message %}
+        <h3>{{ message }}</h3>
+        {% endif %}
+
+        <form action="/new_move" method="POST">
+            <label for="from">From</label>
+            <select name="from">
+                <option value="">Select</option>
+                {% for location in locations %}
+                <option value="{{location.id}}">{{ location.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="to">To</label>
+            <select name="to">
+                <option value="">Select</option>
+                {% for location in locations %}
+                <option value="{{location.id}}">{{ location.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="product">Product</label>
+            <select name="product">
+                {% for product in products %}
+                <option value="{{product.id}}">{{ product.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="quantity">Quantity</label>
+            <input type="number" name="quantity" placeholder="Quantity">
+            <input class="button" type="submit" value="Move">
+
+        </form>
+       
+        <h1>History</h1>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>From Location ID</th>
+                    <th>To Location ID</th>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            {% for pm in prmn %}
+            <tbody>
+                <tr>
+                    <td>{{ pm.id }}</td>
+                    <td>{{ pm.from_location_id }}</td>
+                    <td>{{ pm.to_location_id }}</td>
+                    <td>{{ pm.product_id }}</td>
+                    <td>{{ pm.quantity }}</td>
+                    <td>{{ pm.time_created }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+ 
+   
+        
+</div>
+    
+</body>
+</html>

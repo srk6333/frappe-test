@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Products</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Show all</a></li>
+        <li><a class="active" href="{{ url_for('products_view') }}">Products</a></li>
+        <li><a href="{{ url_for('locations_view') }}">Locations</a></li>
+        <li><a href="{{ url_for('move_view') }}">Move Products</a></li>
+    </ul>
+    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+
+    <h1>Products</h1>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Quantities</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for product in products %}
+            <tbody>
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td class="active-row">{{ product.name }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                        <a href="{{ url_for('deleteProduct', prod_id=product.id ) }}">
+                            <button class="deletebutton" value= "delete" >Delete</button><br>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+       
+        {% if message %}
+        <h3>{{ message }}</h3>
+        {% endif %}
+
+        <form action="/add_prod" method="POST">
+            <input name="name" type="text" placeholder="Product Name">
+            <input name="quantity" type="number" placeholder="Quantity">
+            <input class="button" type="submit" value="Add or Update">
+
+        </form>
+    </div>
+    
+</body>
+</html>

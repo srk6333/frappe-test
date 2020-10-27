@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Home</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <ul>
+        <li><a class="active" href="{{ url_for('index') }}">Show all</a></li>
+        <li><a href="{{ url_for('products_view') }}">Products</a></li>
+        <li><a href="{{ url_for('locations_view') }}">Locations</a></li>
+        <li><a href="{{ url_for('move_view') }}">Move Products</a></li>
+    </ul>
+    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+        <h1>Current Statics</h1>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Product Name</th>
+                    <th>Quantities</th>
+                </tr>
+            </thead>
+            {% for pr in mp %}
+            {% if pr.quantity != 0 %}
+            <tbody>
+                <tr>
+                    <td>
+                        {% for lc in l %}
+                        {% if lc.id == pr.to_location_id %}
+                        {{ lc.name }}
+                        {% endif %}
+                        {% endfor %}
+
+                    </td>
+                    <td class="active-row">
+                        {% for pc in p %}
+                        {% if pc.id == pr.product_id %}
+                        {{ pc.name }}
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ pr.quantity }}</td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+       
+    </div>
+    
+</body>
+</html>

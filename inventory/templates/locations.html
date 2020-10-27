@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Locations</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Show all</a></li>
+        <li><a href="{{ url_for('products_view') }}">Products</a></li>
+        <li><a class="active" href="{{ url_for('locations_view') }}">Locations</a></li>
+        <li><a href="{{ url_for('move_view') }}">Move Products</a></li>
+      </ul>
+      <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+
+
+
+        <h1>Locations</h1>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Location ID</th>
+                    <th>Locations</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for location in locations %}
+            <tbody>
+                <tr>
+                    <td>{{ location.id }}</td>
+                    <td class="active-row">{{ location.name }}</td>
+                    <td>
+                        <a href="{{ url_for('deleteLocation', loc_id=location.id ) }}">
+                            <button class="deletebutton" value= "delete" >Delete</button><br>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+       
+        {% if message %}
+        <h3>{{ message }}</h3>
+        {% endif %}
+        <form action="/add_loc" method="POST">
+            <input name="name" type="text" placeholder="Location">
+            <input class="button" type="submit" value="Add">
+
+        </form>
+    </div>
+    
+</body>
+</html>
