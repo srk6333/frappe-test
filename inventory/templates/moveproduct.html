@@ -15,6 +15,8 @@
         <li><a class="active" href="{{ url_for('move_view') }}">Move Products</a></li>
     </ul>
     <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+        <div class="container">
+        <div class="floatLeft">
         <h1>Products</h1>
 
         <table class="styled-table">
@@ -36,7 +38,8 @@
             </tbody>
         </table>
     
-    
+        </div>
+        <div class="floatRight">
         <h1>Locations</h1>
 
         <table class="styled-table">
@@ -56,6 +59,8 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
+        </div>
         {% if message %}
         <h3>{{ message }}</h3>
         {% endif %}

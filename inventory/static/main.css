@@ -126,3 +126,7 @@ h1{
     font-weight: bold;
     color: #009879;
 }
+
+.floatLeft { width: 50%; float: left; }
+.floatRight {width: 50%; float: right; }
+.container { overflow: hidden; }
